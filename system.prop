@@ -1,0 +1,20 @@
+#
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+ro.secure=0
+ro.allow.mock.location=0
+ro.debuggable=1
+persist.sys.usb.config=mtp,adb
+ro.hardware=qcom
+ro.boot.bootdevice=msm_sdcc.1
+debug.sf.hw=1
+debug.egl.hw=1
+debug.mdpcomp.logs=0
+dev.pm.dyn_samplingrate=1
+debug.composition.type=gpu
+persist.hwc.mdpcomp.enable=true
+debug.mdpcomp.idletime=100
+debug.mdpcomp.fallback=false
+persist.fuse_sdcard=true
+ro.qualcomm.bt.hci_transport=smd
+persist.timed.enable=true
