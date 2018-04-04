@@ -62,8 +62,9 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 # Init properties from bootloader version, ex. model info
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_tblte
-TARGET_RECOVERY_DEVICE_MODULES += libinit_tblte
+TARGET_RECOVERY_DEVICE_MODULES += libinit_tblte tzdata
 TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/init_tblte.cpp
+TW_RECOVERY_ADDITIONAL_RELINK_FILES += $(OUT)/system/usr/share/zoneinfo/tzdata
 
 #TWRP specific build flags
 TW_DEVICE_VERSION := by micky387
