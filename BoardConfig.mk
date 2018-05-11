@@ -1,5 +1,8 @@
 DEVICE_TREE := device/samsung/tbltexx
 
+CM_PLATFORM_SDK_VERSION := 7	# Required for libf2fs.so
+override TARGET_OUT_VENDOR_SHARED_LIBRARIES = $(TARGET_OUT_SHARED_LIBRARIES)
+
 # Architecture
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
@@ -9,13 +12,21 @@ TARGET_KERNEL_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
+# Flags
+TARGET_GLOBAL_CFLAGS += -mfpu=neon -mfloat-abi=softfp
+TARGET_GLOBAL_CPPFLAGS += -mfpu=neon -mfloat-abi=softfp
+
+# Graphics
+TARGET_USES_C2D_COMPOSITION := true
+TARGET_USES_ION := true
+
 # Kernel
-BOARD_CUSTOM_BOOTIMG_MK := device/samsung/tbltexx/mkbootimg.mk
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_TREE)/mkbootimg.mk
 BOARD_KERNEL_CMDLINE :=  console=null androidboot.hardware=qcom user_debug=23 msm_rtb.filter=0x3b7 dwc3_msm.cpu_to_affin=1 androidboot.selinux=permissive
 BOARD_KERNEL_BASE :=  0x00000000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_SEPARATED_DT := true
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02600000 --tags_offset 0x02400000 --kernel_offset 0x00008000
+BOARD_MKBOOTIMG_ARGS := --kernel_offset 0x00008000 --ramdisk_offset 0x02600000 --tags_offset 0x02400000 --board SYSMAGIC000RU
 
 BOARD_FLASH_BLOCK_SIZE := 262144
 BOARD_BOOTIMAGE_PARTITION_SIZE := 17825792 
@@ -24,16 +35,6 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 3774873600
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 27040657408
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
-
-# Graphics
-TARGET_USES_C2D_COMPOSITION := true
-TARGET_USES_ION := true
-
-# Platform
-TARGET_BOARD_PLATFORM := apq8084
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
-TARGET_BOOTLOADER_BOARD_NAME := APQ8084
-TARGET_NO_BOOTLOADER := true
 
 # Kernel Configs
 #TARGET_KERNEL_SOURCE := kernel/samsung/tblte
@@ -44,6 +45,12 @@ TARGET_PREBUILT_KERNEL := $(DEVICE_TREE)/zImage
 TARGET_PREBUILT_DTB := $(DEVICE_TREE)/dt.img
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
+
+# Platform
+TARGET_BOARD_PLATFORM := apq8084
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno420
+TARGET_BOOTLOADER_BOARD_NAME := APQ8084
+TARGET_NO_BOOTLOADER := true
 
 # Use this flag if the board has a ext4 partition larger than 2gb
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -57,7 +64,7 @@ BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 # Init properties from bootloader version, ex. model info
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_tblte
-TARGET_LIBINIT_DEFINES_FILE := device/samsung/tbltexx/init/init_tblte.cpp
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_TREE)/init/init_tblte.cpp
 
 #TWRP specific build flags
 TW_DEVICE_VERSION := by micky387
@@ -91,20 +98,20 @@ MR_DEVICE_VARIANTS := tblte tbltexx tbltedt
 MR_NO_KEXEC := enabled
 MR_NO_KEXEC := true
 MR_INPUT_TYPE := type_b
-MR_INIT_DEVICES := device/samsung/tbltexx/multirom/mr_init_devices.c
+MR_INIT_DEVICES := $(DEVICE_TREE)/multirom/mr_init_devices.c
 MR_CONTINUOUS_FB_UPDATE := true
 MR_DPI := xxhdpi
 MR_DPI_FONT := 435
-MR_FSTAB := device/samsung/tbltexx/multirom/mrom.fstab
+MR_FSTAB := $(DEVICE_TREE)/multirom/mrom.fstab
 MR_KEXEC_MEM_MIN := 0x20000000
 MR_KEXEC_DTB := true
-MR_DEVICE_HOOKS := device/samsung/tbltexx/multirom/mr_hooks.c
+MR_DEVICE_HOOKS := $(DEVICE_TREE)/multirom/mr_hooks.c
 MR_DEVICE_HOOKS_VER := 4
 MR_UNIFIED_TABS := true
 MR_USE_DEBUGFS_MOUNT := true
 MR_PIXEL_FORMAT := "RGBX_8888"
 MR_USE_QCOM_OVERLAY := true
-MR_QCOM_OVERLAY_HEADER := device/samsung/tbltexx/multirom/mr_qcom_overlay.h
+MR_QCOM_OVERLAY_HEADER := $(DEVICE_TREE)/multirom/mr_qcom_overlay.h
 MR_QCOM_OVERLAY_CUSTOM_PIXEL_FORMAT := MDP_RGBX_8888
 # Custom Flags
 MR_DEVICE_SPECIFIC_VERSION := b
