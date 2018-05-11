@@ -9,6 +9,7 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := krait
 TARGET_ARCH := arm
 TARGET_KERNEL_ARCH := arm
+TARGET_KERNEL_HEADER_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a-neon
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
@@ -37,12 +38,10 @@ BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 
 # Kernel Configs
-#TARGET_KERNEL_SOURCE := kernel/samsung/tblte
-#TARGET_KERNEL_CONFIG := apq8084_sec_defconfig
-#TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
-#TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_tblte_eur_defconfig
-TARGET_PREBUILT_KERNEL := $(DEVICE_TREE)/zImage
-TARGET_PREBUILT_DTB := $(DEVICE_TREE)/dt.img
+TARGET_KERNEL_SOURCE := kernel/samsung/apq8084
+TARGET_KERNEL_CONFIG := twrp_defconfig
+TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_tblte_eur_defconfig
+KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
