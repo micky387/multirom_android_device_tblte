@@ -51,7 +51,7 @@ cmd_post_run += $(cmd_put_out)
 cmd_ren_rec_img := echo -ne "\n\nMR_REC_VERSION.mk: Rename output file " 1>&2;
 cmd_ren_rec_img += mv -v
 cmd_ren_rec_img +=  "$(ANDROID_PRODUCT_OUT)/recovery.img"
-cmd_ren_rec_img +=  "$(ANDROID_PRODUCT_OUT)/mr-twrp-recovery-`cat $(MR_REC_BUILD_NUMBER_FILE)`-Experimental_V1.img"
+cmd_ren_rec_img +=  "$(ANDROID_PRODUCT_OUT)/mr-twrp-recovery-`cat $(MR_REC_BUILD_NUMBER_FILE)`-Stable_V2.img"
 cmd_ren_rec_img +=  1>&2;
 
 
