@@ -58,7 +58,7 @@ void init_variant_properties() {
         property_set("ro.product.device", "tblte");
     } else if (strstr(bootloader, "N915FY")) {
         property_set("ro.product.model", "SM-N915FY");
-        property_set("ro.product.device", "tbltexx");    
+        property_set("ro.product.device", "tblte");    
     } else if (strstr(bootloader, "N915G")) {
         property_set("ro.product.model", "SM-N915G");
         property_set("ro.product.device", "tbltedt");

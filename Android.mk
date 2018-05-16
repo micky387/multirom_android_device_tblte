@@ -1,3 +1,3 @@
-ifneq ($(filter tbltexx,$(TARGET_DEVICE)),)
+ifneq ($(filter tblte,$(TARGET_DEVICE)),)
     include $(all-subdir-makefiles)
 endif

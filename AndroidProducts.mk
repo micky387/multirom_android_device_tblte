@@ -1,1 +1,1 @@
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/omni_tbltexx.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/omni_tblte.mk

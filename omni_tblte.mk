@@ -1,5 +1,5 @@
 # Release name
-PRODUCT_RELEASE_NAME := tbltexx
+PRODUCT_RELEASE_NAME := tblte
 
 $(call inherit-product, build/target/product/embedded.mk)
 
@@ -11,7 +11,7 @@ PRODUCT_COPY_FILES += \
     bionic/libc/zoneinfo/tzdata:recovery/root/system/usr/share/zoneinfo/tzdata
 
 ## Device identifier. This must come after all inclusions
-PRODUCT_DEVICE := tbltexx
-PRODUCT_NAME := omni_tbltexx
+PRODUCT_DEVICE := tblte
+PRODUCT_NAME := omni_tblte
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
