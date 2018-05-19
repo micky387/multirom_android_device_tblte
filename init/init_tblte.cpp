@@ -29,62 +29,68 @@
 #include <unistd.h>
 #include <stdio.h>
 
-#include <cutils/properties.h>
-#include "vendor_init.h"
+#include <android-base/logging.h>
+#include <android-base/properties.h>
 #include "log.h"
 #include "util.h"
+
+#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
+#include <sys/_system_properties.h>
+#include "property_service.h"
 #include <sys/system_properties.h>
 
-#define ISMATCH(a,b)    (!strncmp(a,b,PROP_VALUE_MAX))
+using android::base::GetProperty;
 
 void init_variant_properties() {
-    char platform[PROP_VALUE_MAX];
-    char bootloader[PROP_VALUE_MAX];
-    char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
-    int rc;
 
-    rc = property_get("ro.board.platform", platform, NULL);
-    if (!rc || !ISMATCH(platform, ANDROID_TARGET))
-        return;
+    std::string platform = GetProperty("ro.board.platform", "");
+    if (platform != ANDROID_TARGET)
+         return;
 
-    property_get("ro.bootloader", bootloader, NULL);
+    std::string bootloader = GetProperty("ro.bootloader", "");
 
-    if (strstr(bootloader, "N915A")) {
-        property_set("ro.product.model", "SM-N915A");
-        property_set("ro.product.device", "tblteatt");
-    } else if (strstr(bootloader, "N915F")) {
-        property_set("ro.product.model", "SM-N915F");
-        property_set("ro.product.device", "tblte");
-    } else if (strstr(bootloader, "N915FY")) {
-        property_set("ro.product.model", "SM-N915FY");
-        property_set("ro.product.device", "tblte");    
-    } else if (strstr(bootloader, "N915G")) {
-        property_set("ro.product.model", "SM-N915G");
-        property_set("ro.product.device", "tbltedt");
-    } else if (strstr(bootloader, "N915R4")) {
-        property_set("ro.product.model", "SM-N915R4");
-        property_set("ro.product.device", "tblteusc");
-    } else if (strstr(bootloader, "N915P")) {
-        property_set("ro.product.model", "SM-N915P");
-        property_set("ro.product.device", "tbltespr");
-    } else if (strstr(bootloader, "N915T")) {
-        property_set("ro.product.model", "SM-N915T");
-        property_set("ro.product.device", "tbltetmo");
-    } else if (strstr(bootloader, "N915V")) {
-        property_set("ro.product.model", "SM-N915V");
-        property_set("ro.product.device", "tbltevzw");
-    } else if (strstr(bootloader, "N915W8")) {
-        property_set("ro.product.model", "SM-N915W8");
-        property_set("ro.product.device", "tbltecan");
+    if (bootloader.find("N915A") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915A");
+        android::init::property_set("ro.product.device", "tblteatt");
+    } else if (bootloader.find("N915F") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915F");
+        android::init::property_set("ro.product.device", "tblte");
+    } else if (bootloader.find("N915FY") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915FY");
+        android::init::property_set("ro.product.device", "tblte");    
+    } else if (bootloader.find("N915G") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915G");
+        android::init::property_set("ro.product.device", "tbltedt");
+    } else if (bootloader.find("N915R4") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915R4");
+        android::init::property_set("ro.product.device", "tblteusc");
+    } else if (bootloader.find("N915P") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915P");
+        android::init::property_set("ro.product.device", "tbltespr");
+    } else if (bootloader.find("N915T") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915T");
+        android::init::property_set("ro.product.device", "tbltetmo");
+    } else if (bootloader.find("N915V") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915V");
+        android::init::property_set("ro.product.device", "tbltevzw");
+    } else if (bootloader.find("N915W8") == 0) {
+        android::init::property_set("ro.product.model", "SM-N915W8");
+        android::init::property_set("ro.product.device", "tbltecan");
     } else {
-        INFO("%s: unexcepted bootloader id!\n", bootloader, devicename);
+        android::init::property_set("ro.product.model", "ro.product.model");
+        android::init::property_set("ro.product.device", "ro.product.device");
     }
 
-    property_get("ro.product.device", device, NULL);
-    strlcpy(devicename, device, sizeof(devicename));
+    std::string device = GetProperty("ro.product.device", "");
+    LOG(INFO) << "Found bootloader id " << bootloader << " setting build properties for " << device << " device" << std::endl;
 }
+
+// Android 8.1 has to use namespace android::init
+namespace android {
+namespace init {
 
 void vendor_load_properties() {
     init_variant_properties();
-}
+    }
+}  // namespace init
+} // namespace android
