@@ -39,7 +39,8 @@ BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 TARGET_KERNEL_SOURCE := kernel/samsung/apq8084
 TARGET_KERNEL_CONFIG := twrp_defconfig
 TARGET_KERNEL_VARIANT_CONFIG := apq8084_sec_tblte_eur_defconfig
-KERNEL_TOOLCHAIN_PREFIX := arm-linux-androideabi-
+KERNEL_TOOLCHAIN        := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
