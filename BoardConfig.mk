@@ -101,7 +101,6 @@ TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 TARGET_RECOVERY_IS_MULTIROM := true
 MR_DEVICE_VARIANTS := tblteatt tbltecan tbltedt tbltetmo tblteusc tbltespr tbltevzw
 MR_NO_KEXEC := enabled
-MR_NO_KEXEC := true
 MR_INPUT_TYPE := type_b
 MR_INIT_DEVICES := $(DEVICE_TREE)/multirom/mr_init_devices.c
 MR_CONTINUOUS_FB_UPDATE := true
